@@ -1,0 +1,70 @@
+table.display_group {
+	border-collapse: collapse;
+}
+
+table.display_group thead th {
+	text-align: center;
+}
+
+table.display_group td {
+	padding: 10px;
+}
+
+td.remove, td.image {
+	text-align: center;
+}
+
+#rotating_ads{
+  /*position:relative;
+  margin: 100px 0 0 100px;*/
+  width:100%; /* Set your image width */
+  text-align: center;
+}
+
+#rotating_ads._250x250, #rotating_ads._300x250 {
+  height: 260px;
+}
+
+#rotating_ads._250x250 a img {
+  width: 250px;
+}
+
+#rotating_ads._300x250 a img {
+  width: 300px;
+}
+
+#rotating_ads._240x400 {
+  height: 410px;
+}
+
+#rotating_ads._240x400 a img {
+  width: 240px;
+}
+
+#rotating_ads._500x300 {
+  height: 310px;
+}
+
+#rotating_ads._500x300 a img {
+  width: 500px;
+}
+
+#rotating_ads._800x200 {
+  height: 210px;
+}
+
+#rotating_ads._800x200 a img {
+  width: 800px;
+}
+
+#rotating_ads a{
+  display:none;
+}
+
+#rotating_ads a img {
+  height: auto;
+}
+
+#rotating_ads a.active{
+  display:block;
+}
