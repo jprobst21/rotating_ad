@@ -2,6 +2,7 @@
 Author: Josh Probst
 Version: 0.0.1
 
+
 ===== Description =====
 Born from a need to create rotating ads for my own advertisers. This plugin allows the user to create groups of ads based on user-defined images and links. Group image size and duration of each ad are also customizable.
 
