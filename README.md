@@ -1,7 +1,6 @@
 == Rotating Ad Plugin ==
 
 Author: Josh Probst
-Version: 0.0.1
 
 
 == Description ==
