@@ -1,4 +1,28 @@
 <?php
+/*
+Plugin Name: Rotating Ad Widget
+Plugin URI: 
+Description: Rotates a group of ads using a Widget
+Author: Josh Probst
+Version: 0.0.1
+Author URI: 
+*/
+/*  Copyright 2013  Josh Probst  (email : jprobst21@gmail.com )
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License, version 2, as 
+    published by the Free Software Foundation.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
 global $ra_db_version;
 $ra_db_version = "0.0.1";
 
@@ -23,7 +47,8 @@ function ra_install(){
 	$sql2 = "CREATE TABLE $table2_name (
 		id int(11) NOT NULL AUTO_INCREMENT,
 		name varchar(50) NOT NULL DEFAULT '',
-		size varchar(10) NOT NULL DEFAULT '200x200',
+		width int(11) NOT NULL DEFAULT '200',
+		height int(11) NOT NULL DEFAULT '200',
 		PRIMARY KEY  (id)
 	);";
 
@@ -52,7 +77,7 @@ function ra_install_data(){
 
 	$table2_name = $wpdb->prefix . "rotating_ad_groups";
 
-	$rows_affected = $wpdb->insert( $table2_name, array( 'name' => 'Default', 'size' => '250x250' ) );
+	$rows_affected = $wpdb->insert( $table2_name, array( 'name' => 'Default', 'width' => '200', 'height' => '200' ) );
 }
 
 

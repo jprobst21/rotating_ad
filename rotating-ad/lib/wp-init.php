@@ -1,8 +1,30 @@
 <?php
+/*
+Plugin Name: Rotating Ad Widget
+Plugin URI: 
+Description: Rotates a group of ads using a widget
+Author: Josh Probst
+Version: 0.0.1
+Author URI: 
+*/
+/*  Copyright 2013  Josh Probst  (email : jprobst21@gmail.com )
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License, version 2, as 
+    published by the Free Software Foundation.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
 require_once(WP_PLUGIN_DIR . '/rotating-ad/rotating-ad-install.php');
 
 register_activation_hook( ROTATING_AD_FILE, 'ra_setup' );
-//register_activation_hook( ROTATING_AD_FILE, 'ra_install_data' );
 
 
 #widget
@@ -29,17 +51,9 @@ function ra_setup(){
 }
 
 function ra_admin_init(){
-  #exit(ROTATING_AD_CORE_URL . '/css/rotate.css');
   wp_register_style( 'rotating_ad_admin_style', ROTATING_AD_CORE_URL . '/css/rotating_ad_admin.css');
 }
 
-function ra_admin_menu() {
-       /* Register our plugin page */
-       
-  
-       /* Using registered $page handle to hook stylesheet loading */
-       
-   }
 
 function rotating_ad_update_db_check() {
     global $ra_db_version;
@@ -58,10 +72,6 @@ function ra_menu() {
   wp_enqueue_style( 'rotating_ad_admin_style', ROTATING_AD_CORE_URL . '/css/rotating_ad_admin.css' );
 }
 
-function ra_admin_styles(){
-  exit('ino');
-  
-}
 
 function rotating_ad_plugin_group_options(){
   global $wpdb;
@@ -74,25 +84,27 @@ function rotating_ad_plugin_group_options(){
     if( isset($_POST['id'])){
       $id = $_POST['id'];
       $name = $_POST['name'];
-      $size = $_POST['size'];
+      $width = $_POST['width'];
+      $height = $_POST['height'];
 
       $table_name = $wpdb->prefix . "rotating_ad_groups";
 
-      $rows_affected = $wpdb->update( $table_name, array( 'name' => $name, 'size' => $size ), array( 'id' => $id));
+      $rows_affected = $wpdb->update( $table_name, array( 'name' => $name, 'width' => $width, 'height' => $height ), array( 'id' => $id));
     }
     else if( isset($_POST['name'])){
       $name = $_POST['name'];
-      $size = $_POST['size'];
+      $width = $_POST['width'];
+      $height = $_POST['height'];
 
       $table_name = $wpdb->prefix . "rotating_ad_groups";
 
-      $rows_affected = $wpdb->insert( $table_name, array( 'name' => $name, 'size' => $size ) );
+      $rows_affected = $wpdb->insert( $table_name, array( 'name' => $name, 'width' => $width, 'height' => $height ) );
     }
 
 
   }
 
-  $group_sql = "SELECT id, name, size FROM " . $wpdb->prefix . "rotating_ad_groups ORDER BY id";
+  $group_sql = "SELECT id, name, width, height FROM " . $wpdb->prefix . "rotating_ad_groups ORDER BY id";
     
   $group_options = $wpdb->get_results($group_sql);
 
@@ -113,7 +125,7 @@ function rotating_ad_plugin_group_options(){
                 <tr>
                   <th>ID</th>
                   <th>Name</th>
-                  <th>Size</th>
+                  <th colspan=2>Size</th>
                 </tr>
               </thead>
             <?php
@@ -121,7 +133,7 @@ function rotating_ad_plugin_group_options(){
               echo "<tr><form name='form-".$group->id." action='' method='POST'>";
               echo "<td>".$group->id."<input type='hidden' name='id' value='".$group->id."' /></td>";
               echo "<td><input type='text' name='name' value=".$group->name." /></td>";
-              echo "<td><select name='size'>";
+              /*echo "<td><select name='size'>";
               echo "<option";
               if($group->size == '250x250') echo ' SELECTED';
               echo ">250x250</option>";
@@ -137,7 +149,8 @@ function rotating_ad_plugin_group_options(){
               echo "<option";
               if($group->size == '800x200') echo ' SELECTED';
               echo ">800x200</option>";
-              echo "</select></td>";
+              echo "</select></td>";*/
+              echo "<td><label for='width'>width</label><input id='width' type='text' maxlength=4 size=4 name='width' value='".$group->width."' /></td><td><label for='height'>height</label><input id='height' type='text' maxlength=4 size=4 name='height' value='".$group->height."'/>";
               echo "<td><input type='submit' value='Save' />";
               echo "</form></tr>";
             }
@@ -145,13 +158,14 @@ function rotating_ad_plugin_group_options(){
             echo "<tr><form name='form-new' action='' method='POST'>";
             echo "<td>&nbsp;</td>";
             echo "<td><input type='text' name='name' /></td>";
-            echo "<td><select name='size'>";
+            /*echo "<td><select name='size'>";
             echo "<option>250x250</option>";
             echo "<option>300x250</option>";
             echo "<option>240x400</option>";
             echo "<option>500x300</option>";
             echo "<option>800x200</option>";
-            echo "</select></td>";
+            echo "</select></td>";*/
+            echo "<td><label for='width2'>width</label><input id='width2' type='text' maxlength=4 size=4 name='width' /></td><td><label for='height2'>height</label><input id='height2' type='text' maxlength=4 size=4 name='height' />";
             echo "<td><input type='submit' value='Add New' /></td>";
             echo "</form></tr>";
             ?>
@@ -173,7 +187,7 @@ function rotating_ad_plugin_options() {
     wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
   }
 
-  $group_sql = "SELECT id, name, size FROM " . $wpdb->prefix . "rotating_ad_groups ORDER BY id";
+  $group_sql = "SELECT id, name, width, height FROM " . $wpdb->prefix . "rotating_ad_groups ORDER BY id";
     
   $group_options = $wpdb->get_results($group_sql);
 
@@ -216,7 +230,6 @@ function rotating_ad_plugin_options() {
   $select_sql = "SELECT id, name FROM " . $wpdb->prefix . "rotating_ad_groups ORDER BY id";
   
   $group_options = $wpdb->get_results($select_sql);
-  //exit(print_r($group_options,true));
 
   $image_select = $wpdb->get_results("SELECT id, image, link FROM " .$wpdb->prefix . "rotating_ad WHERE group_id = " . $selected_group . " ORDER BY id");
 

@@ -2,7 +2,7 @@
 /*
 Plugin Name: Rotating Ad Widget
 Plugin URI: 
-Description: Rotates ads
+Description: Rotates a group of ads using a widget
 Author: Josh Probst
 Version: 0.0.1
 Author URI: 

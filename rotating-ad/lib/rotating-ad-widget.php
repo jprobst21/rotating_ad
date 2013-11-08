@@ -1,4 +1,27 @@
 <?php
+/*
+Plugin Name: Rotating Ad Widget
+Plugin URI: 
+Description: Rotates a group of ads using a widget
+Author: Josh Probst
+Version: 0.0.1
+Author URI: 
+*/
+/*  Copyright 2013  Josh Probst  (email : jprobst21@gmail.com )
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License, version 2, as 
+    published by the Free Software Foundation.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
 class RotateAdWidget extends WP_Widget
 {
 
@@ -70,7 +93,7 @@ class RotateAdWidget extends WP_Widget
     wp_localize_script( 'rotating_ad_js', 'ra_vars', array('seconds'=>$seconds) );
 
     $images = $wpdb->get_results("SELECT id, image, link FROM " .$wpdb->prefix . "rotating_ad WHERE group_id = " . $instance['active_group'] . " ORDER BY id");
-    $group = $wpdb->get_results("SELECT size FROM " . $wpdb->prefix . "rotating_ad_groups WHERE id = '" . $instance['active_group'] ."'" );
+    $group = $wpdb->get_results("SELECT width, height FROM " . $wpdb->prefix . "rotating_ad_groups WHERE id = '" . $instance['active_group'] ."'" );
     
     echo $before_widget;
     $title = empty($instance['title']) ? ' ' : apply_filters('widget_title', $instance['title']);
@@ -78,20 +101,18 @@ class RotateAdWidget extends WP_Widget
     if (!empty($title))
       echo $before_title . $title . $after_title;;
  
-    // WIDGET CODE GOES HERE
-    // TODO: finish this
     $start = 1;
     
     if($instance['random_order'] == 'on'){
       $start = rand(0, count($images)-1);
     }
-    echo "<div id='rotating_ads' class='_".$group[0]->size."'>";
+    echo "<div id='rotating_ads' style='height:".$group[0]->height."px'>";
     foreach($images as $key => $image){
       echo "<a href='".$image->link."' target='__blank' ";
       if($key == $start){
         echo "class='active'";
       }
-      echo "><img class='_".$group[0]->size."' src='".$image->image."' /></a>";
+      echo "><img style='width:".$group[0]->width."px' src='".$image->image."' /></a>";
     }
     echo "</div>";
  
