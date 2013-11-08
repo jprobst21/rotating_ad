@@ -22,13 +22,13 @@ Author URI:
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-class RotateAdWidget extends WP_Widget
+class RotatingAdWidget extends WP_Widget
 {
 
-  function RotateAdWidget()
+  function RotatingAdWidget()
   {
-    $widget_ops = array('classname' => 'RotateAdWidget', 'description' => 'Rotates Ads' );
-    $this->WP_Widget('RotateAdWidget', 'Rotates Ads', $widget_ops);
+    $widget_ops = array('classname' => 'RotatingAdWidget', 'description' => 'Rotates custom ads' );
+    $this->WP_Widget('RotatingAdWidget', 'Rotate Ads', $widget_ops);
     if( is_active_widget( '', '', $this->id_base ) ) { 
         if (!is_admin()) {
           wp_enqueue_script('jquery');
