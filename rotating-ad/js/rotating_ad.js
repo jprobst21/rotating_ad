@@ -1,4 +1,4 @@
-function rotateAds(){
+function rotatingAd(){
   
   var $active = jQuery('#rotating_ads .active');
   var $next = (jQuery('#rotating_ads .active').next().length > 0) ? jQuery('#rotating_ads .active').next() : jQuery('#rotating_ads a:first');
@@ -13,4 +13,4 @@ function rotateAds(){
   $next.find('img').attr('src', new_src);
 }
 var milliseconds = ra_vars.seconds > 0 ? ra_vars.seconds + '000' : '1000';
-setInterval('rotateAds()', parseInt(milliseconds));
+setInterval('rotatingAd()', parseInt(milliseconds));

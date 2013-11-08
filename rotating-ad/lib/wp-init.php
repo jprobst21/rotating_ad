@@ -29,7 +29,7 @@ register_activation_hook( ROTATING_AD_FILE, 'ra_setup' );
 
 #widget
 include_once(ROTATING_AD_CORE_LIB . '/rotating-ad-widget.php');
-add_action( 'widgets_init', create_function('', 'return register_widget("RotateAdWidget");') );
+add_action( 'widgets_init', create_function('', 'return register_widget("RotatingAdWidget");') );
 add_action( 'admin_init', 'ra_admin_init' );
 add_action( 'plugins_loaded', 'rotating_ad_update_db_check' );
 add_action( 'admin_menu', 'ra_menu' );
@@ -133,23 +133,6 @@ function rotating_ad_plugin_group_options(){
               echo "<tr><form name='form-".$group->id." action='' method='POST'>";
               echo "<td>".$group->id."<input type='hidden' name='id' value='".$group->id."' /></td>";
               echo "<td><input type='text' name='name' value=".$group->name." /></td>";
-              /*echo "<td><select name='size'>";
-              echo "<option";
-              if($group->size == '250x250') echo ' SELECTED';
-              echo ">250x250</option>";
-              echo "<option";
-              if($group->size == '300x250') echo ' SELECTED';
-              echo ">300x250</option>";
-              echo "<option";
-              if($group->size == '240x400') echo ' SELECTED';
-              echo ">240x400</option>";
-              echo "<option";
-              if($group->size == '500x300') echo ' SELECTED';
-              echo ">500x300</option>";
-              echo "<option";
-              if($group->size == '800x200') echo ' SELECTED';
-              echo ">800x200</option>";
-              echo "</select></td>";*/
               echo "<td><label for='width'>width</label><input id='width' type='text' maxlength=4 size=4 name='width' value='".$group->width."' /></td><td><label for='height'>height</label><input id='height' type='text' maxlength=4 size=4 name='height' value='".$group->height."'/>";
               echo "<td><input type='submit' value='Save' />";
               echo "</form></tr>";
@@ -158,13 +141,6 @@ function rotating_ad_plugin_group_options(){
             echo "<tr><form name='form-new' action='' method='POST'>";
             echo "<td>&nbsp;</td>";
             echo "<td><input type='text' name='name' /></td>";
-            /*echo "<td><select name='size'>";
-            echo "<option>250x250</option>";
-            echo "<option>300x250</option>";
-            echo "<option>240x400</option>";
-            echo "<option>500x300</option>";
-            echo "<option>800x200</option>";
-            echo "</select></td>";*/
             echo "<td><label for='width2'>width</label><input id='width2' type='text' maxlength=4 size=4 name='width' /></td><td><label for='height2'>height</label><input id='height2' type='text' maxlength=4 size=4 name='height' />";
             echo "<td><input type='submit' value='Add New' /></td>";
             echo "</form></tr>";
